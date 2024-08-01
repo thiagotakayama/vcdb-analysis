@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "vcdb-analysis"
+version = "0.1.0"
+description = "Jupiter notebooks analysing The VERIS Community Database"
+authors = ["Thiago Takayama <thiago@takayama.co.uk>"]
+license = "Creative Commons Attribution 4.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+jupyter = "^1.0.0"
+requests = "^2.32.3"
+pandas = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
