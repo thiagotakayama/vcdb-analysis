@@ -38,5 +38,9 @@ def get_transformed_dataset():
     # Add column for Vector
     vector_names = [x for x in list(df) if (".vector.") in x  and len(x.split(".")) == 4]
     df["Vectors"] = df.apply(concatenate_vectors, args=(vector_names,), axis=1)
-
+    
+    # Add column for Countries
+    country_names = [x for x in list(df) if x.startswith("victim.country")]
+    df["Countries"] = df.apply(concatenate_actions, args=(country_names,), axis=1)
+    
     return df
