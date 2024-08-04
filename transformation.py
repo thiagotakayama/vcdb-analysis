@@ -13,7 +13,7 @@ def get_transformed_dataset():
     
     # Filter old incidents
     since = 2013
-    until = 2024
+    until = 2022
     df.drop(df.loc[df["timeline.incident.year"] < since].index, inplace=True)
     df.drop(df.loc[df["timeline.incident.year"] > until].index, inplace=True)
     
