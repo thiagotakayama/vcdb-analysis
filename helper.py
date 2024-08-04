@@ -28,5 +28,8 @@ def concatenate_column_names(row, column_names):
     for col in column_names:
         if row[col]:
             name = col.split('.')[-1]
-            names.append(name)
+            if name.lower() != "unknown":
+                names.append(name)
+    if len(names) == 0:
+        names = ["Unknown"]
     return ', '.join(names)
