@@ -49,4 +49,11 @@ def get_transformed_dataset():
     country_names = [x for x in list(df) if x.startswith("victim.country")]
     df["Countries"] = df.apply(concatenate_column_names, args=(country_names,), axis=1)
     
+    # Add column Hacking Variety
+    hvariety_names = [x for x in list(df) if x.startswith("action.hacking.variety.")]
+    df["action.hacking.Variety"] = df.apply(concatenate_column_names, args=(hvariety_names,), axis=1)
+    
+    # Add column Hacking Variety
+    mvariety_names = [x for x in list(df) if x.startswith("action.malware.variety.")]
+    df["action.malware.Variety"] = df.apply(concatenate_column_names, args=(mvariety_names,), axis=1)
     return df
