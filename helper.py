@@ -23,19 +23,10 @@ def add_units_dates(row, parameter):
     except:
         print(row['timeline.incident.date'], row[f'timeline.{parameter}.value'])
 
-def concatenate_actions(row, base_actions):
-    actions = []
-    for col in base_actions:
+def concatenate_column_names(row, column_names):
+    names = []
+    for col in column_names:
         if row[col]:
-            action_name = col.split('.')[-1]
-            actions.append(action_name)
-    return ', '.join(actions)
-
-def concatenate_vectors(row, base_vectors):
-    vectors = []
-    for col in base_vectors:
-        if row[col]:
-            split = col.split('.')
-            vector_name = split[-3].capitalize() + "." + split[-1]
-            vectors.append(vector_name)
-    return ', '.join(vectors)
+            name = col.split('.')[-1]
+            names.append(name)
+    return ', '.join(names)

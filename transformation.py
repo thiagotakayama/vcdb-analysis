@@ -1,7 +1,7 @@
 import json
 import pandas as pd
 from pathlib import Path
-from helper import add_units_dates, concatenate_actions, concatenate_vectors
+from helper import add_units_dates, concatenate_column_names
 
 
 def get_transformed_dataset():
@@ -17,6 +17,12 @@ def get_transformed_dataset():
     df.drop(df.loc[df["timeline.incident.year"] < since].index, inplace=True)
     df.drop(df.loc[df["timeline.incident.year"] > until].index, inplace=True)
     
+    # Filter not confirmed incidents
+    df.drop(df.loc[df["security_incident.Confirmed"] == False].index, inplace=True)
+    
+    # Filter only incidents where a data disclosure was confirmed
+    df.drop(df.loc[df["attribute.confidentiality.data_disclosure.Yes"] == False].index, inplace=True)
+
     # Add column with incident date
     df["timeline.incident.date"] = pd.to_datetime(
         df.rename(columns={
@@ -33,14 +39,14 @@ def get_transformed_dataset():
     
     # Add column for Action
     action_names = [x for x in list(df) if x.startswith("action.") and len(x.split(".")) == 2]
-    df["Actions"] = df.apply(concatenate_actions, args=(action_names,), axis=1)
+    df["Actions"] = df.apply(concatenate_column_names, args=(action_names,), axis=1)
     
     # Add column for Vector
     vector_names = [x for x in list(df) if (".vector.") in x  and len(x.split(".")) == 4]
-    df["Vectors"] = df.apply(concatenate_vectors, args=(vector_names,), axis=1)
+    df["Vectors"] = df.apply(concatenate_column_names, args=(vector_names,), axis=1)
     
     # Add column for Countries
     country_names = [x for x in list(df) if x.startswith("victim.country")]
-    df["Countries"] = df.apply(concatenate_actions, args=(country_names,), axis=1)
+    df["Countries"] = df.apply(concatenate_column_names, args=(country_names,), axis=1)
     
     return df
